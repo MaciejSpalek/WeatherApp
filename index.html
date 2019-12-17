@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Denk+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <title>WeatherApp</title>
+</head>
+
+<body>
+    <main class="main">
+        <header class="header">
+            <div class="header__icon">
+                <i class="far fa-snowflake"></i>
+            </div>
+            <h1 class="header__title">WeatherApp</h1>
+        </header>
+
+        <section class="search">
+            <div class="search__input-box">
+                <input class="search__input" type="text" required>
+                <span class="search__input-line"></span>
+                <span class="search__input-text">Enter city ...</span>
+            </div>
+            <div class="search__button-box">
+                <button type="submit" class="search__button">search</button>
+                <button class="search__arrow-button">
+                        &#8645
+                </button>
+            </div>
+        </section>
+
+        <section class="weather">
+            <header class="weather__header">
+                <h1 class="weather__header-text">Blachownia</h1>
+                <i class="fas fa-arrow-circle-left header--arrow"></i>
+            </header>
+            <div class="weather__info">
+                <div class="weather__icon-box">
+                    <div class="weather__icon">
+                        <h2 class="weather__temperature">20oC</h2>
+                        <i class="fas fa-arrow-circle-left icon--arrow"></i>
+                    </div>
+                </div>
+                <div class="weather__parameters">
+                    <h3 class="weather__description">heavy shower rain and drizzle</h3>
+                    <h4 class="weather__pressure weather--font">Pressure: 1000hPa</h4>
+                    <h4 class="weather__wind-speed weather--font">Wind speed: 10m/s</h4>
+                    <h4 class="weather__clouds weather--font">dskajhkjdsah</h4>
+                    <h4 class="weather__humidity weather--font">hskhdasda: 50%</h4>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>

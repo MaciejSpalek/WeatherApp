@@ -1,0 +1,430 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Denk One', sans-serif;
+}
+
+
+:root {
+    --orange: rgb(255, 94, 0);
+    --black: black;
+    --returnButtonColor: black;
+}
+
+
+@mixin flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    height: 100vh;
+}
+
+.main {
+    @include flex();
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: var(--orange);
+    color: var(--black);
+}
+
+
+
+.header {
+    @include flex();
+    flex: 1;
+    width: 100%;
+    font-weight: bold;
+    box-shadow: 0 .01em 1em .4em var(--black);
+    &__icon {
+        @include flex();
+        margin: 0 .5em;
+        transition-duration: 1s;
+    }
+    &__title {
+        @include flex();
+        font-size: 2.2rem;
+        color: var(--black)
+    }
+    .fa-snowflake {
+        font-size: 2.5em;
+        color: var(--black)
+    }
+}
+
+
+.search {
+    @include flex();
+    position: relative;
+    flex: 4;
+    width: 100%;
+    padding: 0 3em;
+
+    &__input-box {
+        @include flex();
+        flex: 2;
+        position: relative;
+        height: 15%;
+        color: var(--black);
+        margin-right: 2em;
+    }
+    &__input {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: var(--orange);
+        padding: 0 .5rem;
+        z-index: 1;
+    }
+    
+    &__input-text {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        line-height: 2;
+        font-size: 1.2em;
+        font-weight: bold;
+        padding: 0 .5rem;
+        pointer-events: none;
+        color: var(--black);
+        transition: .5s;
+    }
+    
+    &__input-line {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: .2rem;
+        background-color: var(--black);
+        pointer-events: none;
+        transition: .5s;
+    }
+    
+    
+    &__input:focus ~ &__input-line,
+    &__input:valid ~ &__input-line {
+        height: 100%;
+    }
+    
+    &__input:focus ~ &__input-text,
+    &__input:valid ~ &__input-text {
+        bottom: 100%;
+    }
+
+    &__button-box {
+        @include flex();
+        flex: 1;
+        height: 15%;
+    }
+    &__button {
+        @include flex();
+        height: 100%;
+        flex: 3;
+        text-shadow: .08em .08em .01em var(--black);
+        background-color: var(--black);
+        border-radius: .3em;
+        color: var(--orange);
+        font-size: 1.2em;
+        line-height: 1;
+        border: none;
+        outline: none;
+        transition: .5s;
+        &:hover, &:focus {
+           color: white;
+        }
+    }
+    &__arrow-button {
+        @include flex();
+        height: 100%;
+        flex: 1;
+        background-color: var(--black);
+        color: var(--orange);
+        border-radius: .1em;
+        border: none;
+        outline: none;
+        font-size: 1.8em;
+        font-weight: bold;
+        margin-left: .2em;
+        transition: .5s;
+        &:hover, &:focus {
+            color: white;
+        }
+    }
+}
+
+
+.weather {
+    @include flex();
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--orange);
+
+    &__header {
+        position: relative;
+        @include flex();
+        flex: 1;
+        box-shadow: 0 .01em 1em .4em var(--black);
+        width: 100%;
+        font-weight: bold;
+        text-align: center;
+        padding: .5em;
+    }
+
+    &__header-text {
+        font-size: 2.5em;
+    }
+    &__info {
+        position: relative;
+        @include flex();
+        justify-content: space-evenly;
+        flex: 4;
+        width: 100%;
+        font-size: 1em;
+        padding: 0 .5em;
+        text-align: left;
+    }
+    
+    &__icon-box, &__parameters {
+        position: relative;
+        @include flex();
+        flex: 1;
+        height: 100%;
+    }
+
+    &__parameters {
+        @include flex();
+        flex-direction: column;
+        font-size: 1em;
+    }
+
+    &__icon {
+        position: relative;
+        @include flex();
+        align-items: flex-end;
+        width: 50vh;
+        height: 50vh;
+        background-position: center;
+        background-size: cover;
+        box-shadow: 0 0 .2em .001em rgb(0, 16, 48);
+        border-radius: .4em;
+        font-size: 2em;   
+        margin: .2em 0;
+        padding-bottom: .1em;
+    }
+
+    &__temperature {
+        font-size: 1.5em;
+        color: white;
+        text-shadow: 0 0 .12em black;
+    }
+
+    &__description {
+        font-size: 1.8em;
+        text-align: center;
+    }
+
+    .fa-arrow-circle-left::before {
+        position: absolute;
+    }
+}
+
+
+@media (orientation: landscape) {
+    .fa-arrow-circle-left::before {
+        color: var(--black);
+        right: .1em;
+        top: 50%;
+        transform: translate(0, -50%);
+        font-size: 2.5rem;
+    }
+    .icon--arrow {
+        display: none;
+    }
+}
+@media (min-width: 640px) and (orientation: landscape){
+    html {
+        font-size: 1.2rem;
+    }
+}
+@media (min-width: 768px) and (orientation: landscape) {
+    html {
+        font-size: 1.3rem;
+    }
+    .weather--font {
+        font-size: 1.2em;
+    }
+}
+@media (min-width: 1024px) and (orientation: landscape) {
+    html {
+        font-size: 2.1rem;
+    }
+    .weather {
+        &__icon {
+            width: 40vh;
+            height: 40vh;
+        }
+    }
+}
+@media (min-width: 1366px) and (orientation: landscape) {
+    html {
+        font-size: 2.3rem;
+    }
+}
+@media (min-width: 1500px) and (orientation: landscape) {
+    html {
+        font-size: 1.8rem;
+    }
+
+    
+    .search {
+        @include flex();
+        position: relative;
+        flex: 6;
+        width: 100%;
+        padding: 0 10em;
+
+        &__input-box {
+            height: 10%;
+        }
+
+        &__button-box {
+            height: 10%;
+        }
+    }
+
+    .weather {
+        &__info {
+            flex: 6;
+            padding: 0 8em;
+        }
+
+        &__icon {
+            width: 50vh;
+            height: 50vh;
+        }
+    }
+}
+
+
+
+@media (orientation: portrait) {
+    .weather {
+        &__header {
+            flex: 1;
+        }
+        &__info {
+            flex: 6;
+            flex-direction: column;
+        }
+        &__icon {
+            width: 65vw;
+            height: 65vw;
+        }
+        &__description {
+            font-size: 1.7em;
+        }
+        &__icon-box, &__parameters {
+            width: 100%;
+        }
+        &__parameters {
+            flex: 1;
+            justify-content: flex-start;
+        }
+        &__icon-box {
+            flex: 1.5;
+        }
+    }
+   
+    .search {
+        flex-direction: column;
+        flex: 6;
+        padding: 1em 0;
+        
+        &__input-box {
+            height: 10%;
+            width: 80%;
+            flex: none;
+            margin: 0;
+        }
+        &__button-box {
+            flex: none;
+            width: 80%;
+            height: 10%;
+            margin-top: 4em;
+            padding: 0;
+        }
+    }
+    .fa-arrow-circle-left::before {
+        color: var(--returnButtonColor);
+        right: .2em;
+        top: .2em;
+        font-size: 2.5rem;
+    }
+    
+    .header--arrow {
+        display: none;
+    }
+}
+@media(min-width: 360px) and (orientation: portrait)  {
+    html {
+        font-size: 1.2rem;
+    }
+}
+@media(min-width: 375px) and (orientation: portrait)  {
+    html {
+        font-size: 1.4rem;
+    }
+}
+@media(min-width: 480px) and (orientation: portrait)  {
+    html {
+        font-size: 1.7rem;
+    }
+}
+@media(min-width: 768px) and (orientation: portrait)  {
+    html {
+        font-size: 2.2rem;
+    }
+    .weather {
+        &__icon {
+            width: 50vw;
+            height: 50vw;
+        }
+        &__header-text {
+            font-size: 2rem;
+        }
+    }
+
+    .weather--font {
+        font-size: 1.2em;
+    }
+}
+@media(min-width: 1024px) and (orientation: portrait)  {
+    html {
+        font-size: 2.5rem;
+    }
+    .weather {
+        &__icon {
+            width: 50vw;
+            height: 50vw;
+        }
+        &__header-text {
+            font-size: 2.5rem;
+        }
+        .weather--font {
+            font-size: 1.3rem;
+        }
+    }
+}
