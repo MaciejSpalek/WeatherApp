@@ -25,13 +25,14 @@ let city = '';
 let url = '';
 let themeCounter = 0;
 
-function roundNumber(number, decimalPlaces)
-{
+function roundNumber(number, decimalPlaces) {
     let factor = Math.pow(10, decimalPlaces);
     return Math.round(number*factor)/factor;
 }
 function searchButton() {
     $($button).click((e) => {
+        e.preventDefault();
+        $('.search').attr('novalidate', 'novalidate');
         if ($input.val() != '') {
             setCity();
             setURL();
@@ -92,11 +93,8 @@ function sendRequest() {
             $weatherTemperature.html(`${roundNumber(temp, 0)}&degC`)
             changeIconBgColor(icon);
             fadingSection(false, fadeDuration);
-            changeElementState($button, true); // wyłączam button
-            changeElementState($input, true);
-            clearInput($input); // czyszczę input
-
-            // console.log(changeIconBgColor(icon));
+            clearInput($input);
+            $('.header, .search' ).css('display', 'none');
         })
         .catch(error => {
             if (error.status === 404) {
@@ -106,39 +104,44 @@ function sendRequest() {
         });
 }
 function returnButton() {
-    $($returnButton).click(()=> {
-        changeElementState($button, false); // włączam button i input
-        changeElementState($input, false);
+    $($returnButton).click(e => {
+        e.preventDefault();
         fadingSection(true, fadeDuration)
+        $('.header, .search' ).css('display', 'flex');
     })
 }
 function cutString(string) { // funkcja zwraca wartość wysokości bez jednostek px
     return string.substring(0, string.length-2);
 }
 function exchangeAppColor() {
-    $($arrowButton).click(()=> {
+    $($arrowButton).click(e => {
+        e.preventDefault();
         if(themeCounter%2 == 0) {
-            document.documentElement.style.setProperty('--orange', 'rgb(38, 36, 141)');
+            $('body, .weather').css('background', 'linear-gradient(60deg, rgb(0, 74, 212), rgb(0, 121, 158),rgb(0, 51, 192), rgb(0, 18, 97), rgb(17, 16, 16))')
             $('.header__icon').css('transform', 'rotate(180deg)')
         } else {
-            document.documentElement.style.setProperty('--orange', 'rgb(255, 94, 0)');
+            $('body, .weather').css('background', 'linear-gradient(60deg, rgb(211, 211, 211), rgb(255, 243, 176),white, rgb(228, 214, 138), rgb(29, 27, 27))')
             $('.header__icon').css('transform', 'rotate(-180deg)')
         }
         themeCounter++;
     }) 
 }
-
 function changeIconBgColor(string) {
     const newString = string.substr(string.length-1);
     if(newString == 'd') { // jeśli ostatnia litera stringa jest równa 'd' (dzień) ustawia poniższy background
-        $weatherIcon.css('background-color', 'rgb(0, 178, 209)');
+        $weatherIcon.css({
+            'background-color': 'rgba(0, 237, 245, 0.282)',
+            'box-shadow': '0 0 .2em .001em rgb(0, 16, 48)'
+        });
         document.documentElement.style.setProperty('--returnButtonColor', 'black');
     } else {
-        $weatherIcon.css('background-color', 'rgb(0, 16, 48)');
+        $weatherIcon.css({
+            'background-color': 'rgba(0, 16, 48, 0.6)',
+            'box-shadow': 'none'
+        });
         document.documentElement.style.setProperty('--returnButtonColor', 'white');
     }
 }
-
 function adjustFontsize() {
     const inputLength = $input.val().length;
     if(inputLength > 12 && window.innerHeight > window.innerWidth && window.innerWidth < cutString('768px')) {

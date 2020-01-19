@@ -7,9 +7,8 @@
 
 
 :root {
-    --orange: rgb(255, 94, 0);
+    --white: rgb(255, 253, 139);
     --black: black;
-    --returnButtonColor: black;
 }
 
 
@@ -20,7 +19,9 @@
 }
 
 body {
+    @include flex();
     height: 100vh;
+    background: linear-gradient(60deg, rgb(211, 211, 211), rgb(255, 243, 176),white, rgb(228, 214, 138), rgb(29, 27, 27))
 }
 
 .main {
@@ -28,18 +29,19 @@ body {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: var(--orange);
     color: var(--black);
+    overflow: hidden;
 }
 
 
 
 .header {
     @include flex();
-    flex: 1;
     width: 100%;
+    min-height: 3em;
     font-weight: bold;
     box-shadow: 0 .01em 1em .4em var(--black);
+    padding: 1em;
     &__icon {
         @include flex();
         margin: 0 .5em;
@@ -59,18 +61,20 @@ body {
 
 .search {
     @include flex();
+    justify-content: flex-end;
+    flex-direction: column;
     position: relative;
-    flex: 4;
     width: 100%;
-    padding: 0 3em;
+    height: 100%;
+    padding: 3em 2em;
 
     &__input-box {
         @include flex();
-        flex: 2;
+        width: 15em;
         position: relative;
-        height: 15%;
+        height: 2.5em;
         color: var(--black);
-        margin-right: 2em;
+        margin: 2em 0;
     }
     &__input {
         position: absolute;
@@ -82,7 +86,7 @@ body {
         box-shadow: none;
         font-size: 1.2em;
         font-weight: bold;
-        color: var(--orange);
+        color: var(--white);
         padding: 0 .5rem;
         z-index: 1;
     }
@@ -123,8 +127,8 @@ body {
 
     &__button-box {
         @include flex();
-        flex: 1;
-        height: 15%;
+        width: 15em;
+        height: 2.5em;
     }
     &__button {
         @include flex();
@@ -133,12 +137,13 @@ body {
         text-shadow: .08em .08em .01em var(--black);
         background-color: var(--black);
         border-radius: .3em;
-        color: var(--orange);
+        color: var(--white);
         font-size: 1.2em;
         line-height: 1;
         border: none;
         outline: none;
         transition: .5s;
+        cursor: pointer;
         &:hover, &:focus {
            color: white;
         }
@@ -148,7 +153,7 @@ body {
         height: 100%;
         flex: 1;
         background-color: var(--black);
-        color: var(--orange);
+        color: var(--white);
         border-radius: .1em;
         border: none;
         outline: none;
@@ -156,6 +161,7 @@ body {
         font-weight: bold;
         margin-left: .2em;
         transition: .5s;
+        cursor: pointer;
         &:hover, &:focus {
             color: white;
         }
@@ -170,17 +176,17 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: var(--orange);
+    background: linear-gradient(60deg, rgb(211, 211, 211), rgb(255, 243, 176),white, rgb(228, 214, 138), rgb(29, 27, 27));
 
     &__header {
         position: relative;
         @include flex();
-        flex: 1;
         box-shadow: 0 .01em 1em .4em var(--black);
         width: 100%;
+        min-height: 3em;
         font-weight: bold;
         text-align: center;
-        padding: .5em;
+        padding: 1em;
     }
 
     &__header-text {
@@ -189,40 +195,34 @@ body {
     &__info {
         position: relative;
         @include flex();
-        justify-content: space-evenly;
-        flex: 4;
+        justify-content: center;
+        flex-wrap: wrap;
         width: 100%;
+        height: 100%;
         font-size: 1em;
         padding: 0 .5em;
-        text-align: left;
-    }
-    
-    &__icon-box, &__parameters {
-        position: relative;
-        @include flex();
-        flex: 1;
-        height: 100%;
     }
 
     &__parameters {
+        position: relative;
         @include flex();
         flex-direction: column;
         font-size: 1em;
+        margin: 1em;
     }
 
     &__icon {
         position: relative;
         @include flex();
         align-items: flex-end;
-        width: 50vh;
-        height: 50vh;
+        width: 6em;
+        height: 6em;
         background-position: center;
         background-size: cover;
-        box-shadow: 0 0 .2em .001em rgb(0, 16, 48);
         border-radius: .4em;
         font-size: 2em;   
-        margin: .2em 0;
         padding-bottom: .1em;
+        margin: 1em;
     }
 
     &__temperature {
@@ -238,137 +238,78 @@ body {
 
     .fa-arrow-circle-left::before {
         position: absolute;
+        cursor: pointer;
     }
 }
 
 
+@media (min-width: 600px) {
+    
+    .header {
+        &__title {
+            font-size: 3.5em;
+        }
+
+        .fa-snowflake {
+            font-size: 3.5em;
+        }
+    }
+    .search {
+        flex-direction: row;
+        justify-content: center;
+        padding: 0;
+        &__button-box {
+            margin: 0 .5em;
+        }
+        &__input-box {
+            margin: 0 .5em;  
+        }
+    }
+    .weather {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 800px) {
+    .search {
+        &__input-box {
+            width: 22em;
+        }
+    }
+    .weather {
+        &__parameters {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+   .main, .weather {
+       width: 1200px;
+       max-height: 700px;
+       box-shadow: inset -.2em .2em 1em .1em rgb(0, 0, 0);
+       overflow: hidden;
+   }
+   .weather {
+       font-size: 1.6rem;
+   }
+}
+
 @media (orientation: landscape) {
     .fa-arrow-circle-left::before {
         color: var(--black);
-        right: .1em;
+        right: .7em;
         top: 50%;
         transform: translate(0, -50%);
-        font-size: 2.5rem;
+        font-size: 3.5rem;
     }
     .icon--arrow {
         display: none;
     }
 }
-@media (min-width: 640px) and (orientation: landscape){
-    html {
-        font-size: 1.2rem;
-    }
-}
-@media (min-width: 768px) and (orientation: landscape) {
-    html {
-        font-size: 1.3rem;
-    }
-    .weather--font {
-        font-size: 1.2em;
-    }
-}
-@media (min-width: 1024px) and (orientation: landscape) {
-    html {
-        font-size: 2.1rem;
-    }
-    .weather {
-        &__icon {
-            width: 40vh;
-            height: 40vh;
-        }
-    }
-}
-@media (min-width: 1366px) and (orientation: landscape) {
-    html {
-        font-size: 2.3rem;
-    }
-}
-@media (min-width: 1500px) and (orientation: landscape) {
-    html {
-        font-size: 1.8rem;
-    }
-
-    
-    .search {
-        @include flex();
-        position: relative;
-        flex: 6;
-        width: 100%;
-        padding: 0 10em;
-
-        &__input-box {
-            height: 10%;
-        }
-
-        &__button-box {
-            height: 10%;
-        }
-    }
-
-    .weather {
-        &__info {
-            flex: 6;
-            padding: 0 8em;
-        }
-
-        &__icon {
-            width: 50vh;
-            height: 50vh;
-        }
-    }
-}
-
-
-
 @media (orientation: portrait) {
-    .weather {
-        &__header {
-            flex: 1;
-        }
-        &__info {
-            flex: 6;
-            flex-direction: column;
-        }
-        &__icon {
-            width: 65vw;
-            height: 65vw;
-        }
-        &__description {
-            font-size: 1.7em;
-        }
-        &__icon-box, &__parameters {
-            width: 100%;
-        }
-        &__parameters {
-            flex: 1;
-            justify-content: flex-start;
-        }
-        &__icon-box {
-            flex: 1.5;
-        }
-    }
-   
-    .search {
-        flex-direction: column;
-        flex: 6;
-        padding: 1em 0;
-        
-        &__input-box {
-            height: 10%;
-            width: 80%;
-            flex: none;
-            margin: 0;
-        }
-        &__button-box {
-            flex: none;
-            width: 80%;
-            height: 10%;
-            margin-top: 4em;
-            padding: 0;
-        }
-    }
     .fa-arrow-circle-left::before {
-        color: var(--returnButtonColor);
+        color: var(--black);
         right: .2em;
         top: .2em;
         font-size: 2.5rem;
@@ -376,55 +317,5 @@ body {
     
     .header--arrow {
         display: none;
-    }
-}
-@media(min-width: 360px) and (orientation: portrait)  {
-    html {
-        font-size: 1.2rem;
-    }
-}
-@media(min-width: 375px) and (orientation: portrait)  {
-    html {
-        font-size: 1.4rem;
-    }
-}
-@media(min-width: 480px) and (orientation: portrait)  {
-    html {
-        font-size: 1.7rem;
-    }
-}
-@media(min-width: 768px) and (orientation: portrait)  {
-    html {
-        font-size: 2.2rem;
-    }
-    .weather {
-        &__icon {
-            width: 50vw;
-            height: 50vw;
-        }
-        &__header-text {
-            font-size: 2rem;
-        }
-    }
-
-    .weather--font {
-        font-size: 1.2em;
-    }
-}
-@media(min-width: 1024px) and (orientation: portrait)  {
-    html {
-        font-size: 2.5rem;
-    }
-    .weather {
-        &__icon {
-            width: 50vw;
-            height: 50vw;
-        }
-        &__header-text {
-            font-size: 2.5rem;
-        }
-        .weather--font {
-            font-size: 1.3rem;
-        }
     }
 }
